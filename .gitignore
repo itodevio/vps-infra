@@ -1,0 +1,6 @@
+.env
+letsencrypt/
+uptime-kuma-data/
+loki-data/
+victoriametrics-data/
+grafana-data/

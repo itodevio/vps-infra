@@ -1,0 +1,38 @@
+services:
+  # Replace with your actual app service.
+  # It must write its SQLite database to /data/app.db inside the container,
+  # and mount the sqlite-data volume at /data.
+  app:
+    image: your-app-image
+    restart: unless-stopped
+    volumes:
+      - sqlite-data:/data
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.myapp.rule=Host(`${APP_HOST}`)"
+      - "traefik.http.routers.myapp.entrypoints=websecure"
+      - "traefik.http.routers.myapp.tls.certresolver=myresolver"
+
+  litestream:
+    image: litestream/litestream
+    command: replicate
+    restart: unless-stopped
+    volumes:
+      - sqlite-data:/data
+      - ./litestream.yml:/etc/litestream.yml
+    environment:
+      R2_ACCESS_KEY_ID: ${R2_ACCESS_KEY_ID}
+      R2_SECRET_ACCESS_KEY: ${R2_SECRET_ACCESS_KEY}
+      R2_ENDPOINT: ${R2_ENDPOINT}
+      R2_BUCKET: ${R2_BUCKET}
+    depends_on:
+      - app
+
+volumes:
+  sqlite-data:
+
+networks:
+  web:
+    external: true

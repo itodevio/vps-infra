@@ -1,0 +1,17 @@
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: >
+      redis-server
+      --requirepass ${REDIS_PASSWORD}
+      --appendonly yes
+      --appendfsync everysec
+    volumes:
+      - ./redis-data:/data
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
