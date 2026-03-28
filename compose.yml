@@ -14,7 +14,6 @@ services:
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
       - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
       - "--entryPoints.websecure.address=:443"
-      - "--entrypoints.postgres.address=:5432"
 
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
@@ -25,7 +24,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "5432:5432"
     networks:
       - web
     volumes:
