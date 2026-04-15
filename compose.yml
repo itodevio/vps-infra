@@ -27,7 +27,7 @@ services:
     networks:
       - web
     volumes:
-      - ./letsencrypt:/letsencrypt
+      - letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
     healthcheck:
       test: ["CMD", "traefik", "healthcheck", "--ping"]
@@ -52,7 +52,7 @@ services:
     image: louislam/uptime-kuma:1
     restart: unless-stopped
     volumes:
-      - ./uptime-kuma-data:/app/data
+      - uptime-kuma-data:/app/data
     networks:
       - web
     healthcheck:
@@ -99,7 +99,7 @@ services:
     command: -config.file=/etc/loki/config.yml
     volumes:
       - ./config/loki.yml:/etc/loki/config.yml:ro
-      - ./loki-data:/loki
+      - loki-data:/loki
     networks:
       - observability
 
@@ -141,7 +141,7 @@ services:
       - "--retentionPeriod=3"
     volumes:
       - ./config/victoriametrics-scrape.yml:/etc/victoriametrics/scrape.yml:ro
-      - ./victoriametrics-data:/storage
+      - victoriametrics-data:/storage
     networks:
       - observability
 
@@ -152,7 +152,7 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
       GF_USERS_ALLOW_SIGN_UP: "false"
     volumes:
-      - ./grafana-data:/var/lib/grafana
+      - grafana-data:/var/lib/grafana
       - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
     networks:
       - web
@@ -175,3 +175,10 @@ networks:
     external: true
   observability:
     internal: true
+
+volumes:
+  letsencrypt:
+  uptime-kuma-data:
+  loki-data:
+  victoriametrics-data:
+  grafana-data:
