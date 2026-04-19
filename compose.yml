@@ -56,7 +56,7 @@ services:
     networks:
       - web
     healthcheck:
-      test: ["CMD-SHELL", "node /app/extra/healthcheck"]
+      test: ["CMD-SHELL", "/app/extra/healthcheck"]
       interval: 10s
       timeout: 5s
       retries: 3
