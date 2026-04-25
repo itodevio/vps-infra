@@ -1,0 +1,334 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Container logs per service",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["logs"],
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Logs",
+  "uid": "logs",
+  "version": 1,
+  "templating": {
+    "list": [
+      {
+        "current": { "selected": false, "text": "", "value": "" },
+        "hide": 0,
+        "label": "Search",
+        "name": "search",
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 100,
+      "panels": [],
+      "title": "Apps",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "Loki" },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 1 },
+      "id": 1,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "expr": "{service=\"liga-dos-barcos-prod\"} |~ \"$search\"",
+          "refId": "A"
+        }
+      ],
+      "title": "liga-dos-barcos",
+      "type": "logs"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "Loki" },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 13 },
+      "id": 2,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "expr": "{service=~\"db-prod|backup|backup-sync\"} |~ \"$search\"",
+          "refId": "A"
+        }
+      ],
+      "title": "PostgreSQL & Backups",
+      "type": "logs"
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 21 },
+      "id": 200,
+      "panels": [],
+      "title": "Infrastructure",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "Loki" },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 22 },
+      "id": 3,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "expr": "{service=\"traefik\"} |~ \"$search\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Traefik",
+      "type": "logs"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "Loki" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 30 },
+      "id": 4,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "expr": "{service=\"uptime-kuma\"} |~ \"$search\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Uptime Kuma",
+      "type": "logs"
+    },
+    {
+      "datasource": { "type": "loki", "uid": "Loki" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 30 },
+      "id": 5,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "expr": "{service=\"watchtower\"} |~ \"$search\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Watchtower",
+      "type": "logs"
+    },
+    {
+      "collapsed": true,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 38 },
+      "id": 300,
+      "title": "Monitoring Stack",
+      "type": "row",
+      "panels": [
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 39 },
+          "id": 6,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "targets": [
+            {
+              "datasource": { "type": "loki", "uid": "Loki" },
+              "expr": "{service=\"grafana\"} |~ \"$search\"",
+              "refId": "A"
+            }
+          ],
+          "title": "Grafana",
+          "type": "logs"
+        },
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 39 },
+          "id": 7,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "targets": [
+            {
+              "datasource": { "type": "loki", "uid": "Loki" },
+              "expr": "{service=\"loki\"} |~ \"$search\"",
+              "refId": "A"
+            }
+          ],
+          "title": "Loki",
+          "type": "logs"
+        },
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 47 },
+          "id": 8,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "targets": [
+            {
+              "datasource": { "type": "loki", "uid": "Loki" },
+              "expr": "{service=\"promtail\"} |~ \"$search\"",
+              "refId": "A"
+            }
+          ],
+          "title": "Promtail",
+          "type": "logs"
+        },
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 47 },
+          "id": 9,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "targets": [
+            {
+              "datasource": { "type": "loki", "uid": "Loki" },
+              "expr": "{service=\"victoriametrics\"} |~ \"$search\"",
+              "refId": "A"
+            }
+          ],
+          "title": "VictoriaMetrics",
+          "type": "logs"
+        },
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 55 },
+          "id": 10,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "targets": [
+            {
+              "datasource": { "type": "loki", "uid": "Loki" },
+              "expr": "{service=\"cadvisor\"} |~ \"$search\"",
+              "refId": "A"
+            }
+          ],
+          "title": "cAdvisor",
+          "type": "logs"
+        },
+        {
+          "datasource": { "type": "loki", "uid": "Loki" },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 55 },
+          "id": 11,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": false,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": false
+          },
+          "targets": [
+            {
+              "datasource": { "type": "loki", "uid": "Loki" },
+              "expr": "{service=\"node-exporter\"} |~ \"$search\"",
+              "refId": "A"
+            }
+          ],
+          "title": "Node Exporter",
+          "type": "logs"
+        }
+      ]
+    }
+  ]
+}
